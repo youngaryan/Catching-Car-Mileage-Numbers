@@ -8,31 +8,98 @@ public class mile {
     }
     public static int isInteresting(int number, int[] awesomePhrases) {
 
+        int countTwos = 0;
+        int countOnes = 0;
+        int countZeroes = 0;
+
         int lengthP = awesomePhrases.length;
         int numDigits = String.valueOf(number).length();
+        String numStr = String.valueOf(number);
+        int firstDigits = numStr.charAt(0);
 
-
-        //check if the number is equal to the awesomePhrases members
-        for (int i = 0; i < lengthP; i++) {
-            if (number == awesomePhrases[i]){return 2;} else if ((number +=2) >= awesomePhrases[i]) {return 1;}else {return 0;}
-        }
 
 
         //check if the number has 3 digits or
-        if (numDigits<3){return 0;}
+        if (numDigits<3){return  0;}
+
+        //check if the number is equal to the awesomePhrases members
+        for (int awesomePhrase : awesomePhrases) {
+            if (number == awesomePhrase) {
+                countTwos += 1;
+            } else if ((number += 2) >= awesomePhrase) {
+                countOnes += 1;
+            } else {
+                countZeroes += 1;
+            }
+        }
 
         // check if the first digit is followed by zeros
-        String numStr = String.valueOf(number);
-        boolean allButFirstZero = numStr.substring(1).matches("0*");
-        boolean isTwoAway = number - Integer.parseInt(numStr.charAt(0) + "00") <= 2;
-        if (allButFirstZero) {
-            return 2;
-        }
-        // check if 2 or less mile is away from n000
-        else if (isTwoAway) {
-            return 1;
+        String wantedFollowedByZeros = String.valueOf(numStr.charAt(0));
+        for (int i = 0; i < numStr.length()-1; i++) {
+            wantedFollowedByZeros +="0";
         }
 
-        return 0;
+        int wantedNumFollowedZerosInt = Integer.parseInt(wantedFollowedByZeros);
+
+        if (number == wantedNumFollowedZerosInt){
+            countTwos +=1;
+        } else if ((number+2)>=wantedNumFollowedZerosInt ) {
+            countOnes += 1;
+        }
+        else {
+            countZeroes +=1;
+        }
+
+
+        //check if the number has the same digits
+
+        String wantedSameDigits = "" ;
+        for (int i = 0; i < numStr.length(); i++) {
+            wantedSameDigits += firstDigits;
+        }
+
+        int wantedSaDigitsInt = Integer.parseInt(wantedSameDigits);
+
+        if (number == wantedSaDigitsInt){
+            countTwos +=1;
+        } else if ((number+2) >= wantedSaDigitsInt) {
+            //check if it's 2 away from being a same digit number
+            countOnes +=1;
+        } else {countZeroes += 1;}
+
+        //check if the digits are sequential, incrementing
+
+        String wantedIncrementingStr = String.valueOf(firstDigits);
+
+        for (int i = firstDigits+1; i <numStr.length() ; i++) {
+            wantedIncrementingStr += "i";
+        }
+        int wantedIncrementingInt = Integer.parseInt(wantedIncrementingStr);
+
+        if (wantedIncrementingInt == number) {
+            countTwos +=1;
+
+        } else if ((number + 2) >= number) {
+            countOnes +=1;
+        }else {countZeroes +=1;}
+
+        //check if the digits are sequential, decrementing
+
+        String wantedDecrementingStr = String.valueOf(firstDigits);
+        int k = numStr.length();
+        while (k>0){
+            wantedDecrementingStr += "i";
+
+            k--;
+        }
+        int wantedDecrementingInt = Integer.parseInt(wantedDecrementingStr);
+
+        if (number == wantedDecrementingInt){
+            countTwos +=1;
+        } else if ((number+2)>=number) {
+            countOnes+=1;
+        }else {countZeroes+=1;}
+        return  0;
     }
+
 }
