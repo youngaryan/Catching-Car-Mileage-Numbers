@@ -99,7 +99,47 @@ public class mile {
         } else if ((number+2)>=number) {
             countOnes+=1;
         }else {countZeroes+=1;}
-        return  0;
+
+
+        //The digits are a palindrome
+        String num2 = Integer.toString(number+2);
+        //for even length numbers
+        if (numStr.length() %2 ==0 ) {
+            int halfPal =numStr.length()/2;
+            for (int i = 0; i < halfPal; i++) {
+                if (numStr.charAt(i) != numStr.charAt(numStr.length()-i)){
+                    countOnes +=1;
+                } else if (numStr.charAt(i) <= num2.charAt(numStr.length()-i)) {
+                    countOnes +=1;
+                }
+                else{
+                    countTwos+=1;
+                }
+            }
+        }//for odd digits length number
+        else{
+            int halfPalOdd =numStr.length()/2-1;
+            for (int i = 0; i < halfPalOdd ; i++) {
+                if (numStr.charAt(i) != numStr.charAt(numStr.length()-i)) {
+                    countZeroes+=1;
+                } else if (numStr.charAt(i) <= num2.charAt(numStr.length()-i)) {
+                    countOnes+=1;
+                }else {
+                    countTwos+=1;
+                }
+            }
+        }
+
+
+        if (countTwos > 0) {
+            return 2;
+        } else if (countOnes>0 ) {
+            return 1;
+        }
+        else {return 0;}
+
     }
+
+
 
 }
