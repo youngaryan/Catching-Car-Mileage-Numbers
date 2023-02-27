@@ -4,7 +4,7 @@
 
 public class mile {
     public static void main(String[] args) {
-
+        System.out.println(isInteresting(1336, new int[]{1337, 256}));
     }
     public static int isInteresting(int number, int[] awesomePhrases) {
 
@@ -92,43 +92,52 @@ public class mile {
 
             k--;
         }
-        int wantedDecrementingInt = Integer.parseInt(wantedDecrementingStr);
+        try {
+            int wantedDecrementingInt = Integer.parseInt(wantedDecrementingStr);
 
-        if (number == wantedDecrementingInt){
-            countTwos +=1;
-        } else if ((number+2)>=number) {
-            countOnes+=1;
-        }else {countZeroes+=1;}
+            if (number == wantedDecrementingInt){
+                countTwos +=1;
+            } else if ((number+2)>=number) {
+                countOnes+=1;
+            }else {countZeroes+=1;}
 
-
-        //The digits are a palindrome
-        String num2 = Integer.toString(number+2);
-        //for even length numbers
-        if (numStr.length() %2 ==0 ) {
-            int halfPal =numStr.length()/2;
-            for (int i = 0; i < halfPal; i++) {
-                if (numStr.charAt(i) != numStr.charAt(numStr.length()-i)){
-                    countOnes +=1;
-                } else if (numStr.charAt(i) <= num2.charAt(numStr.length()-i)) {
-                    countOnes +=1;
-                }
-                else{
-                    countTwos+=1;
-                }
-            }
-        }//for odd digits length number
-        else{
-            int halfPalOdd =numStr.length()/2-1;
-            for (int i = 0; i < halfPalOdd ; i++) {
-                if (numStr.charAt(i) != numStr.charAt(numStr.length()-i)) {
-                    countZeroes+=1;
-                } else if (numStr.charAt(i) <= num2.charAt(numStr.length()-i)) {
-                    countOnes+=1;
-                }else {
-                    countTwos+=1;
-                }
-            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
+
+
+        try {
+            //The digits are a palindrome
+            String num2 = Integer.toString(number+2);
+            //for even length numbers
+            if (numStr.length() %2 ==0 ) {
+                int halfPal =numStr.length()/2;
+                for (int i = 0; i < halfPal; i++) {
+                    if (numStr.charAt(i) != numStr.charAt(numStr.length()-i)){
+                        countOnes +=1;
+                    } else if (numStr.charAt(i) <= num2.charAt(numStr.length()-i)) {
+                        countOnes +=1;
+                    }
+                    else{
+                        countTwos+=1;
+                    }
+                }
+            }//for odd digits length number
+            else{
+                int halfPalOdd =numStr.length()/2-1;
+                for (int i = 0; i < halfPalOdd ; i++) {
+                    if (numStr.charAt(i) != numStr.charAt(numStr.length()-i)) {
+                        countZeroes+=1;
+                    } else if (numStr.charAt(i) <= num2.charAt(numStr.length()-i)) {
+                        countOnes+=1;
+                    }else {
+                        countTwos+=1;
+                    }
+                }
+            }
+
+
+        }catch (Exception e){System.out.println(e.getMessage());}
 
 
         if (countTwos > 0) {
